@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "373931217873",
+    "firebase_url": "https://geo-espoch-default-rtdb.firebaseio.com",
+    "project_id": "geo-espoch",
+    "storage_bucket": "geo-espoch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373931217873:android:3ae0aef8c2ab2cfb2f46f0",
+        "android_client_info": {
+          "package_name": "com.meman94.geo_espoch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373931217873-h620aqot30qllovgkm8rlgom6j39qmmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXKPAqvzvGtSGfZTNw7E9ESBREzi-G9Kk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373931217873-h620aqot30qllovgkm8rlgom6j39qmmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
