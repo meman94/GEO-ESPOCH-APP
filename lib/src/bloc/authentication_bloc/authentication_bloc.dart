@@ -35,7 +35,7 @@ class AuthenticationBloc
       final isSignedIn = await _userRepository.isSignedIn();
       if (isSignedIn) {
         final user = await _userRepository.getUser();
-        yield await Future.delayed(Duration(seconds: 5), () {
+        yield await Future.delayed(Duration(seconds: 0), () {
           return Authenticated(user);
         });
       } else {

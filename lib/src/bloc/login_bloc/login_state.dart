@@ -1,3 +1,4 @@
+import 'package:geo_espoch/src/util/errors.dart';
 import 'package:meta/meta.dart';
 
 class LoginState {
@@ -7,6 +8,7 @@ class LoginState {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final String textState;
 
   bool get isFormValid => isEmailValid && isPasswordValid;
 
@@ -16,7 +18,8 @@ class LoginState {
       @required this.isPasswordValid,
       @required this.isSubmitting,
       @required this.isSuccess,
-      @required this.isFailure});
+      @required this.isFailure,
+      this.textState});
 
   // Cuatro estados:
   // - Vacio, empty
@@ -40,13 +43,14 @@ class LoginState {
   }
 
   // - Falla, failure
-  factory LoginState.failure() {
+  factory LoginState.failure(String textState) {
     return LoginState(
         isEmailValid: true,
         isPasswordValid: true,
         isSubmitting: false,
         isSuccess: false,
-        isFailure: true);
+        isFailure: true,
+        textState: Errors.stringError(textState));
   }
 
   // - Exito, success
@@ -83,7 +87,7 @@ class LoginState {
         isFailure: false);
   }
 
-  @override
+/*   @override
   String toString() {
     return ''' LoginState {
       isEmailValid: $isEmailValid,
@@ -93,5 +97,5 @@ class LoginState {
       isFailure: $isFailure
     }
     ''';
-  }
+  } */
 }

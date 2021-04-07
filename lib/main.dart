@@ -6,8 +6,8 @@ import 'package:geo_espoch/src/bloc/authentication_bloc/bloc.dart';
 import 'package:geo_espoch/src/bloc/simple_bloc_delegate.dart';
 import 'package:geo_espoch/src/repository/user_repository.dart';
 import 'package:geo_espoch/src/ui/home_screen.dart';
-import 'package:geo_espoch/src/ui/login/login_screen.dart';
 import 'package:geo_espoch/src/ui/splash_screen.dart';
+import 'package:geo_espoch/src/ui/welcome/welcome_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +32,16 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        errorColor: Color(0xFF83060A),
+        primaryColor: Color(0xFF148C41),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+      ),
+      title: 'GEO-ESPOCH',
+      debugShowCheckedModeBanner: false,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is Uninitialized) {
@@ -43,7 +53,7 @@ class App extends StatelessWidget {
             );
           }
           if (state is Unauthenticated) {
-            return LoginScreen(
+            return WelcomeScreen(
               userRepository: _userRepository,
             );
           }

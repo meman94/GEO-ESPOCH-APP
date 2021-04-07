@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geo_espoch/src/bloc/authentication_bloc/bloc.dart';
 import 'package:geo_espoch/src/bloc/login_bloc/bloc.dart';
 import 'package:geo_espoch/src/repository/user_repository.dart';
+import 'package:geo_espoch/src/util/customSnackBar.dart';
 import 'create_account_button.dart';
-import 'google_login_button.dart';
 import 'login_button.dart';
 
 class LoginForm extends StatefulWidget {
@@ -51,30 +51,43 @@ class _LoginFormState extends State<LoginForm> {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
-            SnackBar(
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Login Failure'), Icon(Icons.error)],
-              ),
-              backgroundColor: Colors.red,
+            CustomSnackBar(
+              content: Text('${state.textState}'),
+              behavior: SnackBarBehavior.floating,
             ),
           );
       }
       if (state.isSubmitting) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Logging in... '),
-                CircularProgressIndicator(),
-              ],
+          ..showSnackBar(
+            CustomSnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Cargando datos, por favor espere'),
+                  SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 20,
+                    height: 20,
+                  )
+                ],
+              ),
+              behavior: SnackBarBehavior.floating,
             ),
-          ));
+          );
       }
       if (state.isSuccess) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            CustomSnackBar(
+              content: Text('Correcto.!'),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
         BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
+        Navigator.of(context).pop();
       }
     }, child: BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
@@ -82,53 +95,74 @@ class _LoginFormState extends State<LoginForm> {
           padding: EdgeInsets.all(20.0),
           child: Form(
             child: ListView(
+              shrinkWrap: true,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Image.asset(
-                    'assets/code1.png',
-                    height: 200,
+                Text(
+                  "Iniciar sesión",
+                  style: TextStyle(
+                    fontSize: 25.0,
                   ),
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
-                      icon: Icon(Icons.email), labelText: 'Email'),
+                      fillColor: Color(0xFF148C41),
+                      icon: Icon(Icons.email),
+                      labelText: 'Correo electrónico'),
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: AutovalidateMode.always,
                   autocorrect: false,
-                  /* validator: (_) {
-                    return !state.isEmailValid ? 'Invalid Email' : null;
-                  }, */
+                  validator: (_) {
+                    return !state.isEmailValid
+                        ? 'Correo electrónico inválido'
+                        : null;
+                  },
                 ),
                 TextFormField(
                   controller: _passwordController,
                   decoration: InputDecoration(
-                      icon: Icon(Icons.lock), labelText: 'Password'),
+                      fillColor: Color(0xFF148C41),
+                      icon: Icon(Icons.lock),
+                      labelText: 'Contraseña'),
                   obscureText: true,
                   autovalidateMode: AutovalidateMode.always,
                   autocorrect: false,
-                  /* validator: (_) {
-                    return !state.isPasswordValid ? 'Invalid Password' : null;
-                  }, */
+                  validator: (_) {
+                    return !state.isPasswordValid
+                        ? 'Contraseña invalida'
+                        : null;
+                  },
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: MediaQuery.of(context).size.width / 25),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       // Tres botones:
                       // LoginButton
-                      LoginButton(
-                        onPressed: isLoginButtonEnabled(state)
-                            ? _onFormSubmitted
-                            : null,
+                      ConstrainedBox(
+                        constraints: BoxConstraints.tightFor(height: 45),
+                        child: LoginButton(
+                            onPressed: isLoginButtonEnabled(state)
+                                ? _onFormSubmitted
+                                : null),
                       ),
                       // GoogleLoginButton
-                      GoogleLoginButton(),
+                      //GoogleLoginButton(),
                       // CreateAccountButton
-                      CreateAccountButton(
-                        userRepository: _userRepository,
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ConstrainedBox(
+                        constraints: BoxConstraints.tightFor(height: 45),
+                        child: CreateAccountButton(
+                          userRepository: _userRepository,
+                        ),
                       ),
                     ],
                   ),

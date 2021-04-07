@@ -64,8 +64,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       await _userRepository.signInWithGoogle();
       yield LoginState.success();
-    } catch (_) {
-      yield LoginState.failure();
+    } catch (e) {
+      yield LoginState.failure(e.message.toString());
     }
   }
 
@@ -75,8 +75,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       await _userRepository.signInWithCredentials(email, password);
       yield LoginState.success();
-    } catch (_) {
-      yield LoginState.failure();
+    } catch (e) {
+      yield LoginState.failure(e.message.toString());
     }
   }
 }

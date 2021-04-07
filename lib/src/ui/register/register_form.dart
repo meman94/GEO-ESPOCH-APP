@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geo_espoch/src/bloc/authentication_bloc/bloc.dart';
 import 'package:geo_espoch/src/bloc/register_bloc/bloc.dart';
 import 'package:geo_espoch/src/ui/register/register_button.dart';
+import 'package:geo_espoch/src/util/customSnackBar.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -46,15 +47,22 @@ class _RegisterFormState extends State<RegisterForm> {
       if (state.isSubmitting) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Registering'),
-                CircularProgressIndicator()
-              ],
+          ..showSnackBar(
+            CustomSnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Registrando cuenta'),
+                  SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 20,
+                    height: 20,
+                  )
+                ],
+              ),
+              behavior: SnackBarBehavior.floating,
             ),
-          ));
+          );
       }
       // Si estado es success
       if (state.isSuccess) {
@@ -65,16 +73,12 @@ class _RegisterFormState extends State<RegisterForm> {
       if (state.isFailure) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Registration Failure'),
-                Icon(Icons.error)
-              ],
+          ..showSnackBar(
+            CustomSnackBar(
+              content: Text('${state.textState}'),
+              behavior: SnackBarBehavior.floating,
             ),
-            backgroundColor: Colors.red,
-          ));
+          );
       }
     }, child: BlocBuilder<RegisterBloc, RegisterState>(
       builder: (context, state) {
@@ -83,37 +87,59 @@ class _RegisterFormState extends State<RegisterForm> {
           child: Form(
             child: ListView(
               children: <Widget>[
+                Text(
+                  "Crear Perfil",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
                 // Un textForm para email
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
                     icon: Icon(Icons.email),
-                    labelText: 'Email',
+                    labelText: 'Correo electrónico',
                   ),
                   keyboardType: TextInputType.emailAddress,
                   autocorrect: false,
                   autovalidateMode: AutovalidateMode.always,
                   validator: (_) {
-                    return !state.isEmailValid ? 'Invalid Email' : null;
+                    return !state.isEmailValid
+                        ? 'Correo electrónico inválido'
+                        : null;
                   },
                 ),
                 // Un textForm para password
                 TextFormField(
                   controller: _passwordController,
                   decoration: InputDecoration(
-                      icon: Icon(Icons.lock), labelText: 'Password'),
+                    icon: Icon(Icons.lock),
+                    labelText: 'Contraseña',
+                  ),
                   obscureText: true,
                   autocorrect: false,
                   autovalidateMode: AutovalidateMode.always,
                   validator: (_) {
-                    return !state.isPasswordValid ? 'Invalid Password' : null;
+                    return !state.isPasswordValid
+                        ? 'Contraseña invalida'
+                        : null;
                   },
                 ),
+                SizedBox(
+                  height: 30,
+                ),
                 // Un button
-                RegisterButton(
-                  onPressed:
-                      isRegisterButtonEnabled(state) ? _onFormSubmitted : null,
-                )
+                ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(height: 45),
+                  child: RegisterButton(
+                    onPressed: isRegisterButtonEnabled(state)
+                        ? _onFormSubmitted
+                        : null,
+                  ),
+                ),
               ],
             ),
           ),

@@ -16,7 +16,23 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Image.asset(
+              'assets/logoBlack.png',
+              fit: BoxFit.contain,
+              height: 45,
+            ),
+          ],
+        ),
+        /* leading: new IconButton(
+          icon: new Icon(
+            Icons.arrow_back,
+            size: 30,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ), */
       ),
       body: Center(
         child: BlocProvider<RegisterBloc>(

@@ -32,6 +32,12 @@ dependencies:
   meta: ^1.3.0
   rxdart: ^0.26.0
   flutter_auth_buttons:
+  cloud_firestore: ^1.0.3
+  another_flushbar: ^1.10.17
+  flushbar: ^1.10.4
+  syncfusion_flutter_sliders: ^18.4.49-beta
+  syncfusion_flutter_core: ^18.4.49
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -99,7 +105,7 @@ flutter_native_splash:
   # of your splash screen to a solid color.  Use background_image to set the background of your
   # splash screen to a png image.  This is useful for gradients. The image will be stretch to the
   # size of the app. Only one parameter can be used, color and background_image cannot both be set.
-  color: "#ffffff"
+  color: "#148C41"
   #background_image: "assets/background.png"
   
   # Optional parameters are listed below.  To enable a parameter, uncomment the line by removing 
@@ -107,7 +113,7 @@ flutter_native_splash:
 
   # The image parameter allows you to specify an image used in the splash screen.  It must be a 
   # png file.  
-  image: assets/espoch.png
+  image: assets/logoWhite.png
 
   # The color_dark, background_image_dark, and image_dark are parameters that set the background
   # and image when the device is in dark mode. If they are not specified, the app will use the
