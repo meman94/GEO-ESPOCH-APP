@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:geo_espoch/src/bloc/authentication_bloc/bloc.dart';
 import 'package:geo_espoch/src/bloc/simple_bloc_delegate.dart';
 import 'package:geo_espoch/src/repository/user_repository.dart';
-import 'package:geo_espoch/src/ui/home_screen.dart';
+import 'package:geo_espoch/src/ui/home/home_screen.dart';
 import 'package:geo_espoch/src/ui/splash_screen.dart';
 import 'package:geo_espoch/src/ui/welcome/welcome_screen.dart';
 

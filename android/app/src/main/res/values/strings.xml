@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GEO-ESPOCH</string>
+    <string name="mapbox_access_token" translatable="false">pk.eyJ1IjoibWVtYW45NCIsImEiOiJja242eTZpODAwaXByMm5sMDRtZjlxczN2In0.z-pE8csaHcVJfCvuHyzhHQ</string>
+    <string name="user_location_permission_explanation">Esta aplicación necesita permisos de ubicación para mostrar su funcionalidad.</string>
+    <string name="user_location_permission_not_granted">No concediste permisos de ubicación.</string>
+</resources>
